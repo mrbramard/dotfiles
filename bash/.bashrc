@@ -123,3 +123,5 @@ alias ?='duck'
 alias pdf="mupdf -I"
 alias t="todo"
 export PATH="$PATH:/opt/nvim-linux64/bin"
+alias vi="nvim"
+alias vim="nvim"
