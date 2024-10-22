@@ -122,3 +122,4 @@ PS1='\[\e[93m\]\u\[\e[95m\]@\[\e[92m\]\h:\[\e[94m\]\w\[\e[91m\]${PS1_CMD1}\[\e[0
 alias ?='duck'
 alias pdf="mupdf -I"
 alias t="todo"
+export PATH="$PATH:/opt/nvim-linux64/bin"
