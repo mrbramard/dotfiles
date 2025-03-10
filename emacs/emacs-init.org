@@ -1,0 +1,138 @@
+#+title: Emacs configution
+#+property: header-args :tangle "init.el" :mkdirp yes
+#+startup: overview indent
+
+* How to use this Org-mode emacs configuration
+
+1. Put some emacs-lisp code inside a src block
+2. run M-x org-babel-tangle to write the src blocks to init.el
+   
+** Tips
+
+- Use M-x org-babel-demarcate-block to split a src block into 2
+  
+* Set up the Package Manager
+
+#+begin_src emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
+#+end_src
+
+** Install the packages
+
+#+begin_src emacs-lisp
+  (custom-set-variables
+   '(package-selected-packages '(lsp-mode magit gruvbox-theme org)))
+  (custom-set-faces)
+#+end_src
+
+* Basic UI stuff
+
+Don't show the splash screen
+#+begin_src emacs-lisp
+  (setq inhibit-startup-message t)
+#+end_src 
+
+Switch quickly between dark and ligth theme
+#+begin_src emacs-lisp
+  (defun nuit ()
+    (interactive)
+    (load-theme 'gruvbox-dark-medium t))
+
+  (defun jour ()
+    (interactive)
+    (load-theme 'gruvbox-light-hard t))
+
+  (jour)
+#+end_src
+  
+#+begin_src emacs-lisp
+  (menu-bar-mode 0)
+
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
+  (global-display-line-numbers-mode 0)
+
+  (setq visible-bell 1)
+
+  (set-frame-font "Cascadia Code 11" nil)
+  (add-to-list 'initial-frame-alist '(fullscreen . maximized)) 
+#+end_src
+
+Show colors in compilation buffer
+#+begin_src emacs_lisp
+  (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+#+end_src
+
+* Keep folders clean
+
+Place all the backup files (exemple.txt~) inside the emacs directory in a tmp/backups folder
+
+#+begin_src emacs-lisp
+  (setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups" user-emacs-directory))))
+#+end_src
+
+Place all the autosave files (#exemple.txt#) inside the emacs directory as well
+
+#+begin_src emacs-lisp
+  (make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
+
+  (setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
+        auto-save-file-name-transform `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
+#+end_src
+
+Finally disable the lock files (those can't be moved elsewhere)
+
+#+begin_src emacs-lisp
+  (setq create-lockfiles nil)
+#+end_src
+
+* Org-mode
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c l") #'org-store-link)
+  (global-set-key (kbd "C-c a") #'org-agenda)
+  (global-set-key (kbd "C-c c") #'org-capture)
+#+end_src
+
+#+begin_src emacs-lisp
+  (setq org-log-done 'time)
+#+end_src
+
+** Org-bullets
+
+[[https://github.com/sabof/org-bullets][GitHub repository]]
+Show org-mode bullets as UTF-8 characters
+
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+end_src
+
+* LSP
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :commands (lsp lsp-deferred)
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :config
+    (lsp-enable-which-key-integration t))
+#+end_src
+
+** Typescript
+
+#+begin_src emacs-lisp
+  (use-package typescript-mode
+    :mode "\\.ts\\'"
+    :hook (typescript-mode . lsp-deferred)
+    :config
+    (setq typescript-indent-level 2))
+#+end_src
+* Stuff to implement/upgrade
+
+** TODO Find a good open source font to replace Microsoft's Cascadia Code
