@@ -23,7 +23,7 @@
 
 #+begin_src emacs-lisp
   (custom-set-variables
-   '(package-selected-packages '(lsp-mode magit org)))
+   '(package-selected-packages '(lsp-mode magit gruvbox-theme org)))
   (custom-set-faces)
 #+end_src
 
@@ -38,21 +38,21 @@ Switch quickly between dark and ligth theme
 #+begin_src emacs-lisp
   (defun nuit ()
     (interactive)
-    (load-theme 'modus-vivendi t))
+    (load-theme 'gruvbox-dark-medium t))
 
   (defun jour ()
     (interactive)
-    (load-theme 'modus-operandi t))
+    (load-theme 'gruvbox-light-hard t))
 
   (jour)
 #+end_src
   
 #+begin_src emacs-lisp
   (menu-bar-mode 0)
+
   (tool-bar-mode 0)
   (scroll-bar-mode 0)
   (global-display-line-numbers-mode 0)
-  (tab-bar-mode t)
 
   (setq visible-bell 1)
 
@@ -110,15 +110,6 @@ Show org-mode bullets as UTF-8 characters
     :ensure t
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-#+end_src
-
-* Vertico
-
-#+begin_src emacs-lisp
-  (use-package vertico
-    :ensure t
-    :init
-    (vertico-mode))
 #+end_src
 
 * LSP
