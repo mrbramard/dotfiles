@@ -1,17 +1,13 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;; and `package-pinned-packages`. Most users will not need or want to do this.
-;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
-(package-refresh-contents)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(gruvbox-theme lsp-mode magit nov org vertico)))
+ '(package-selected-packages '(lsp-mode magit org vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -21,19 +17,28 @@
 
 (setq inhibit-startup-message t)
 
-(load-theme 'gruvbox-dark-medium t)
+(defun nuit ()
+  (interactive)
+  (load-theme 'modus-vivendi t))
+
+(defun jour ()
+  (interactive)
+  (load-theme 'modus-operandi t))
+
+(jour)
 
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (global-display-line-numbers-mode 0)
+(tab-bar-mode t)
 
 (setq visible-bell 1)
 
-(set-frame-font "Cascadia Mono 12" nil)
+(set-frame-font "Cascadia Code 11" nil)
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-(vertico-mode 1)
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
 (setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups" user-emacs-directory))))
 
@@ -44,8 +49,32 @@
 
 (setq create-lockfiles nil)
 
-(unless (package-installed-p 'evil)
-  (package-install 'evil))
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
 
-(require 'evil)
-(evil-mode 0)
+(setq org-log-done 'time)
+
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode))
+
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))

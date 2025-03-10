@@ -1,11 +1,12 @@
+#+title: Emacs configution
 #+property: header-args :tangle "init.el" :mkdirp yes
-#+startup: content indent
+#+startup: overview indent
 
 * How to use this Org-mode emacs configuration
 
 1. Put some emacs-lisp code inside a src block
 2. run M-x org-babel-tangle to write the src blocks to init.el
-
+   
 ** Tips
 
 - Use M-x org-babel-demarcate-block to split a src block into 2
@@ -15,59 +16,53 @@
 #+begin_src emacs-lisp
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-  ;; and `package-pinned-packages`. Most users will not need or want to do this.
-  ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
   (package-initialize)
-  (package-refresh-contents)
 #+end_src
 
 ** Install the packages
 
 #+begin_src emacs-lisp
   (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(package-selected-packages '(vertico lsp-mode magit gruvbox-theme org)))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
+   '(package-selected-packages '(lsp-mode magit org)))
+  (custom-set-faces)
 #+end_src
+
 * Basic UI stuff
 
 Don't show the splash screen
-
 #+begin_src emacs-lisp
   (setq inhibit-startup-message t)
-#+end_src
+#+end_src 
 
+Switch quickly between dark and ligth theme
 #+begin_src emacs-lisp
+  (defun nuit ()
+    (interactive)
+    (load-theme 'modus-vivendi t))
 
-  (load-theme 'gruvbox-dark-medium t)
+  (defun jour ()
+    (interactive)
+    (load-theme 'modus-operandi t))
 
+  (jour)
+#+end_src
+  
+#+begin_src emacs-lisp
   (menu-bar-mode 0)
   (tool-bar-mode 0)
   (scroll-bar-mode 0)
   (global-display-line-numbers-mode 0)
+  (tab-bar-mode t)
 
   (setq visible-bell 1)
 
-  (set-frame-font "Cascadia Mono 12" nil)
+  (set-frame-font "Cascadia Code 11" nil)
   (add-to-list 'initial-frame-alist '(fullscreen . maximized)) 
 #+end_src
 
-* Vertico
-
-Expand the minibuffer to display possible matches
-Doesn't seems to work with emacs 27.1
-
-#+begin_src emacs-lisp
-  (vertico-mode 1)
+Show colors in compilation buffer
+#+begin_src emacs_lisp
+  (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 #+end_src
 
 * Keep folders clean
@@ -93,15 +88,60 @@ Finally disable the lock files (those can't be moved elsewhere)
   (setq create-lockfiles nil)
 #+end_src
 
-* Being EVIL
-
-Let's try to use the Emacs Vi Layer mode to emulate vi inside emacs.
-We'll see if this helps.
+* Org-mode
 
 #+begin_src emacs-lisp
-  (unless (package-installed-p 'evil)
-    (package-install 'evil))
-
-  (require 'evil)
-  (evil-mode 0)
+  (global-set-key (kbd "C-c l") #'org-store-link)
+  (global-set-key (kbd "C-c a") #'org-agenda)
+  (global-set-key (kbd "C-c c") #'org-capture)
 #+end_src
+
+#+begin_src emacs-lisp
+  (setq org-log-done 'time)
+#+end_src
+
+** Org-bullets
+
+[[https://github.com/sabof/org-bullets][GitHub repository]]
+Show org-mode bullets as UTF-8 characters
+
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+end_src
+
+* Vertico
+
+#+begin_src emacs-lisp
+  (use-package vertico
+    :ensure t
+    :init
+    (vertico-mode))
+#+end_src
+
+* LSP
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :commands (lsp lsp-deferred)
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :config
+    (lsp-enable-which-key-integration t))
+#+end_src
+
+** Typescript
+
+#+begin_src emacs-lisp
+  (use-package typescript-mode
+    :mode "\\.ts\\'"
+    :hook (typescript-mode . lsp-deferred)
+    :config
+    (setq typescript-indent-level 2))
+#+end_src
+* Stuff to implement/upgrade
+
+** TODO Find a good open source font to replace Microsoft's Cascadia Code
