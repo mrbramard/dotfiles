@@ -1,0 +1,40 @@
+#+title: Quernay
+#+author: Maxime Girard
+#+startup: indent
+
+* Quernay
+
+Petite ville située entre Loqueteau et Bélis.
+
+* PNJs 
+
+| Nom                      | Occupation                                                                     |
+|--------------------------+--------------------------------------------------------------------------------|
+| Jehan Lavelle            | Bourgmestre (actuellement malade et alité)                                     |
+| Maître Perrin Marcenet   | Charpentier et sculpteur sur bois, victime du vol                              |
+|--------------------------+--------------------------------------------------------------------------------|
+| Ysabeau Vaudreuil        | Aubergiste de L'Auberge du Chêne Murmureur                                     |
+| Colas Delacourt          | Meunier et propriétaire du vieux moulin sur la rivière                         |
+| Blaise Marbot            | Forgeron et maréchal-ferrant                                                   |
+| Estienne Fournier        | Vieux conteur du village, qui connaît toutes les légendes de Quernay           |
+| Perrette Foucher         | Tisserande et guérisseuse, connue pour ses décoctions étranges                 |
+|--------------------------+--------------------------------------------------------------------------------|
+| Hugo Lormet              | Orphelin chapardeur, témoin du vol                                             |
+| Odile et Géraud Brissot  | Couple de boulangers réputés pour leur pain aux glands                         |
+| Père Gauvain Bellêtre    | Ancien moine devenu ermite, vit près du Chêne Murmureur                        |
+| Renaud des Prés          | Bûcheron, celui qui a frappé le Chêne et est tombé malade                      |
+| Aliénor Chassagne        | Apicultrice, veille sur des ruches à la lisière du bois                        |
+| Théophile Bastien        | Vieil homme vivant seul dans une cabane en forêt, autrefois druide             |
+|--------------------------+--------------------------------------------------------------------------------|
+| Frère Vaudran            | Un érudit disparu qui enquêtait sur Quernay                                    |
+| Les Frères Darnelle      | Deux marchands itinérants suspects (peut-être impliqués dans le vol ?)         |
+| Messire Raoul d'Aurignac | Un noble en voyage, troublé par d'étranges rêves depuis son passage au village |
+|--------------------------+--------------------------------------------------------------------------------|
+| Margot Louvel            | Vieille femme qui parle aux corbeaux et connaît les secrets du Chêne           |
+| Rodolphe "le Chasseur"   | Étranger récemment installé, rôde la nuit près du bois                         |
+| "Le Ménétrier Masqué"    | Un musicien inconnu, jouant parfois près du Chêne avant de disparaître         |
+
+* Lieux
+** Auberge du Chêne Murmureur
+** Place du Chêne
+** Maison du Bourgmestre

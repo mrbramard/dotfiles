@@ -38,13 +38,13 @@ Switch quickly between dark and ligth theme
 #+begin_src emacs-lisp
   (defun nuit ()
     (interactive)
-    (load-theme 'modus-vivendi t))
+    (load-theme 'gruvbox-dark-medium t))
 
   (defun jour ()
     (interactive)
-    (load-theme 'modus-operandi t))
+    (load-theme gruvbox-soft-medium t))
 
-  (jour)
+  (nuit)
 #+end_src
   
 #+begin_src emacs-lisp
@@ -52,7 +52,8 @@ Switch quickly between dark and ligth theme
   (tool-bar-mode 0)
   (scroll-bar-mode 0)
   (global-display-line-numbers-mode 0)
-  (tab-bar-mode t)
+
+  (display-line-numbers-mode t)
 
   (setq visible-bell 1)
 
@@ -112,6 +113,13 @@ Show org-mode bullets as UTF-8 characters
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+end_src
 
+** Agenda
+
+#+begin_src emacs-lisp
+  (setq org-agenda-files (list "~/.emacs.d/org/work.org"))
+  (setq org-default-notes-file "~/.emacs.d/org/work.org")
+#+end_src
+
 * Vertico
 
 #+begin_src emacs-lisp
@@ -119,6 +127,20 @@ Show org-mode bullets as UTF-8 characters
     :ensure t
     :init
     (vertico-mode))
+#+end_src
+* Yasnippets
+
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (with-eval-after-load 'yasnippet
+      (setq yas-snippet-dirs '(yasnippet-snippets-dir)))
+    (yas-reload-all)
+    (yas-global-mode))
+
+  (use-package yasnippet-snippets
+    :ensure t)
 #+end_src
 
 * LSP
@@ -142,6 +164,3 @@ Show org-mode bullets as UTF-8 characters
     :config
     (setq typescript-indent-level 2))
 #+end_src
-* Stuff to implement/upgrade
-
-** TODO Find a good open source font to replace Microsoft's Cascadia Code

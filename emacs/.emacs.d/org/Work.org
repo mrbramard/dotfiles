@@ -1,0 +1,44 @@
+#+TITLE: Liste de tâches générique
+#+STARTUP: indent
+
+* Tasks
+** TODO Rencontre RDM avec Benoit Bourcier
+SCHEDULED: <2025-03-25 mar. 09:30-10:00>
+** DONE Voir ce que c'est cette histoire de responsable de mandat (Benoit Bourcier)
+CLOSED: [2025-03-13 jeu. 14:30]
+*** DONE Répondre à Benoit, setup un moment pour discuter au bureau d'Acensi
+CLOSED: [2025-03-13 jeu. 10:17] SCHEDULED: <2025-03-13 jeu.>
+** TODO [[https://addenergie-flo.atlassian.net/browse/EMSPK-4388][[DR portal] The error tile should not be displayed when there is no address]]
+** TODO Lire la doc [[https://addenergie-flo.atlassian.net/wiki/spaces/EMSP/pages/1331625991/FLO+Cloud+Database+access][Flo Cloud Database access]]
+** DONE Première connection employeurD
+CLOSED: [2025-03-13 jeu. 10:34] SCHEDULED: <2025-03-13 jeu.>
+** DONE [[https://addenergie-flo.atlassian.net/browse/EMSPK-4349][[HMI] Integrate the HMI Design System in the HMI FrontEnd monorepo.]]
+** DONE Récupérer les T4 et R1 sur Nethris
+** DONE Rapport mensuel Boond
+** DONE Extraire toutes les feuilles de paie de Nethris
+CLOSED: [2025-03-13 jeu. 09:05]
+** DONE 1 on 1 avec Bruno-Pierre
+CLOSED: [2025-03-13 jeu. 14:23] SCHEDULED: <2025-03-13 jeu. 11:30-12:00>
+** DONE Refinement eMSP Koopa
+CLOSED: [2025-03-13 jeu. 14:23] SCHEDULED: <2025-03-13 jeu. 13:00-14:30>
+  [2025-03-13 jeu.]
+** DONE Recherche probleme hydratation avec Bruno-Pierre
+CLOSED: [2025-03-13 jeu. 15:15] SCHEDULED: <2025-03-13 jeu. 14:40-15:30>
+
+Impossible de trouver exactement d'où vient le problème. On a isolé 3 fichiers qui posent problème:
+- ClientAppInit.tsx
+- MyAddress.tsx (anciennement Address.tsx)
+- FrameLayout.tsx
+
+Pour avoir un quick fix qui permet au moins de supprimer les erreurs, on peut ajouter le bout de code suivant.
+
+#+begin_src typescript
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
+#+end_src
+  

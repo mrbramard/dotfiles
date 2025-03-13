@@ -3,35 +3,27 @@
 (package-initialize)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(lsp-mode magit org vertico)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+ '(package-selected-packages '(lsp-mode magit org)))
+(custom-set-faces)
 
 (setq inhibit-startup-message t)
 
 (defun nuit ()
   (interactive)
-  (load-theme 'modus-vivendi t))
+  (load-theme 'gruvbox-dark-medium t))
 
 (defun jour ()
   (interactive)
-  (load-theme 'modus-operandi t))
+  (load-theme gruvbox-soft-medium t))
 
-(jour)
+(nuit)
 
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (global-display-line-numbers-mode 0)
-(tab-bar-mode t)
+
+(display-line-numbers-mode t)
 
 (setq visible-bell 1)
 
@@ -60,10 +52,24 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+(setq org-agenda-files (list "~/.emacs.d/org/work.org"))
+(setq org-default-notes-file "~/.emacs.d/org/work.org")
+
 (use-package vertico
   :ensure t
   :init
   (vertico-mode))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (with-eval-after-load 'yasnippet
+    (setq yas-snippet-dirs '(yasnippet-snippets-dir)))
+  (yas-reload-all)
+  (yas-global-mode))
+
+(use-package yasnippet-snippets
+  :ensure t)
 
 (use-package lsp-mode
   :ensure t
