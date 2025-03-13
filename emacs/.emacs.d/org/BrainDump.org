@@ -1,0 +1,19 @@
+* Tasks
+** TODO Emulateur Gameboy
+** TODO Formation Performance Casey Muratori
+** TODO Anniversaire Lucie
+** TODO Impôts 2024
+** TODO Méditation
+** TODO Prendre des nouvelles de Rémi Guenault
+** TODO Déplacement Québec
+** TODO Faire fonctionner emacs sur le t480
+** TODO Écrire campagne de JDR
+** TODO Faire les comptes
+** TODO Prendre rdv chez le dentiste
+** TODO Faire du sport
+** TODO Perdre du poids
+** TODO Lire la doc de Next.js
+** TODO Lire la doc de Auth.js
+** TODO Refaire la garde-robe
+** TODO Setup mon environnement GTD dans org-mode 
+** TODO Lire les livres sur C#
